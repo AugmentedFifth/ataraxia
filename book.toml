@@ -1,0 +1,4 @@
+[book]
+authors = ["Augmented Fourth <zcomito@gmail.com>"]
+multilingual = false
+src = "src"
