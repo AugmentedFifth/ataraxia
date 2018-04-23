@@ -82,8 +82,9 @@ and `-inf` is negative infinity.
 
 ataraxia allows single-quotes (`'`) in identifiers, so for character literals a
 `#` prefix is required, like so: `#'🎺'`. The content between the single-quotes
-can be any single valid UTF-8 encoded scalar value, or a backslash followed by
-an escape character. Currently supported escape characters:
+can be any single valid UTF-8 encoded scalar value (except backslash or
+single-quote), or a backslash followed by an escape character. Currently
+supported escape characters:
 
 - `\` \\( \rightarrow \\) backslash
 - `'` \\( \rightarrow \\) single-quote

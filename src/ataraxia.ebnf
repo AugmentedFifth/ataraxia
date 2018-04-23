@@ -1,0 +1,94 @@
+(***   ataraxia   ***)
+
+
+(* Nonterminals *)
+
+prog = { decl } ;
+
+decl = id, ":", fullTypeSignature, ":=", expr ;
+
+fullTypeSignature = typeSignature, { typeSignature }, "->",
+                    typeSignature, { typeSignature }
+                  | typeSignature
+                  ;
+
+typeSignature = typeId
+              | "(", { typeId }, ")"
+              | "(",  typeSignature, { typeSignature },
+                "->", typeSignature, { typeSignature }, ")"
+              ;
+
+expr = literal | id | block ;
+
+literal = boolLiteral
+        | intLiteral
+        | floatLiteral
+        | charLiteral
+        | strLiteral
+        | listLiteral
+        ;
+
+block = "{", { expr }, "}" ;
+
+boolLiteral = "true" | "false" ;
+
+intLiteral = decLiteral | hexLiteral | binLiteral ;
+
+decLiteral = [ "-" ], DIGIT, { ( DIGIT | "_" ) } ;
+
+hexLiteral = [ "-" ], "0", ( "x" | "X" ), HEXDIGIT, { ( HEXDIGIT | "_" ) } ;
+
+binLiteral = [ "-" ], "0", ( "b" | "B" ), BINDIGIT, { ( BINDIGIT | "_" ) } ;
+
+floatLiteral = floatHead, ".", DIGIT, { ( DIGIT | "_" ) },
+               [ ( "e" | "E" ), [ "-" ], DIGIT, { DIGIT } ]
+             | "NaN"
+             | [ "-" ], "inf"
+             ;
+
+floatHead = [ "-" ], { DIGIT } | [ "-" ], DIGIT, { ( DIGIT | "_" ) }, DIGIT ;
+
+charLiteral = "#'", ( UNESCAPEDCHAR | "\", ESCAPE ), "'" ;
+
+strLiteral = '"', { ( UNESCAPEDSTR | "\", ESCAPE ) }, '"' ;
+
+listLiteral = "[", { expr }, "]" ;
+
+typeId = UPPERCASELETTER, { ( LETTER | DIGIT | "_" | "'" | "-" ) } ;
+
+id = ( LETTER | "_" | "'" | MISCSYMBOL ),
+     { ( LETTER | "_" | "'" | "-" | MISCSYMBOL ) } ;
+
+
+(* Named terminals *)
+
+BINDIGIT = "0" | "1" ;
+DIGIT = BINDIGIT | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+HEXDIGIT = DIGIT
+         | "a" | "A"
+         | "b" | "B"
+         | "c" | "C"
+         | "d" | "D"
+         | "e" | "E"
+         | "f" | "F"
+         ;
+UNESCAPEDCHAR = ? Any single valid UTF-8 encoded scalar value
+                  except "\" or "'" ? ;
+UNESCAPEDSTR = ? Any single valid UTF-8 encoded scalar value
+                 except "\" or '"' ? ;
+ESCAPE = "'" | '"' | "\" | "t" | "n" | "r" | "0" ;
+UPPERCASELETTER = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+                | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+                | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+                | "V" | "W" | "X" | "Y" | "Z"
+                ;
+LOWERCASELETTER = "a" | "b" | "c" | "d" | "e" | "f" | "g"
+                | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+                | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+                | "v" | "w" | "x" | "y" | "z"
+                ;
+LETTER = UPPERCASELETTER | LOWERCASELETTER ;
+MISCSYMBOL = "~" | "`" | "!" | "@" | "#" | "$" | "%"
+           | "^" | "&" | "*" | "+" | "=" | "|" | ":"
+           | ";" | "<" | ">" | "," | "." | "?" | "/"
+           ;
