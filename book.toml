@@ -2,3 +2,6 @@
 authors = ["Augmented Fourth <zcomito@gmail.com>"]
 multilingual = false
 src = "src"
+
+[output.html]
+mathjax-support = true
