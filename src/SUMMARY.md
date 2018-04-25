@@ -8,4 +8,4 @@
 - [chapter 5: built-in entities](./#)
 - [chapter 6: standard library](./#)
 - [chapter 7: grammar](./chapter_7.md)
-- [chapter 8: bytecode format](./#)
+- [chapter 8: bytecode format](./chapter_8.md)

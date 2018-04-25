@@ -88,7 +88,7 @@ You might want to have some kind of
 too. For that, ataraxia provides just a few constructs (essentially built-in
 [higher-order functions](https://en.wikipedia.org/wiki/Higher-order_function))
 that you can use, as well as the ability to make any of your own that your
-heart desires, thanks to teh first-class status of functions.
+heart desires, thanks to the first-class status of functions.
 
 ### if
 
