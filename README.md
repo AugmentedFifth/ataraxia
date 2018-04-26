@@ -8,5 +8,7 @@ See [SUMMARY.md](./src/SUMMARY.md) for the table of contents.
 
 ## license
 
-This document/these documents are collectively licensed under the GNU Free
-Documentation License version 1.3+. See [LICENSE](./LICENSE) for the full text.
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+
+This work is licensed under a
+[Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).

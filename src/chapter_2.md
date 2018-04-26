@@ -82,7 +82,7 @@ and `-inf` is negative infinity.
 
 ataraxia allows single-quotes (`'`) in identifiers, so for character literals a
 `#` prefix is required, like so: `#'🎺'`. The content between the single-quotes
-can be any single valid UTF-8 encoded scalar value (except backslash or
+can be any single valid UTF-8 encoded Unicode scalar value (except backslash or
 single-quote), or a backslash followed by an escape character. Currently
 supported escape characters:
 
@@ -99,8 +99,9 @@ supported escape characters:
 ataraxia supports double-quoted strings, most similar to string literals in
 [C](https://en.wikipedia.org/wiki/C_(programming_language)). The content
 between the double-quoted strings can be zero or more of the possible contents
-of character literals (UTF-8 encoded scalar value/backslash followed by an
-escape character), e.g. `""`, `"the band: 🎹 🎺 🎷 🥁 🎸\n"`.
+of character literals (UTF-8 encoded Unicode scalar value/backslash followed by
+an escape character), e.g. `""`, `"the band: 🎹 🎺 🎷 🥁 🎸\n"`,
+`"^0x[0-9a-f]+"`.
 
 #### lists
 

@@ -71,11 +71,11 @@ HEXDIGIT = DIGIT
          | "e" | "E"
          | "f" | "F"
          ;
-UNESCAPEDCHAR = ? Any single valid UTF-8 encoded scalar value
+UNESCAPEDCHAR = ? Any single valid UTF-8 encoded Unicode scalar value
                   except "\" or "'" ? ;
-UNESCAPEDSTR = ? Any single valid UTF-8 encoded scalar value
+UNESCAPEDSTR = ? Any single valid UTF-8 encoded Unicode scalar value
                  except "\" or '"' ? ;
-UNESCAPEDNEWLINE = ? Any single valid UTF-8 encoded scalar value
+UNESCAPEDNEWLINE = ? Any single valid UTF-8 encoded Unicode scalar value
                      except "\n" or "\r" ? ;
 ESCAPE = "'" | '"' | "\" | "t" | "n" | "r" | "0" ;
 UPPERCASELETTER = "A" | "B" | "C" | "D" | "E" | "F" | "G"
@@ -99,4 +99,5 @@ MISCSYMBOL = "~" | "`" | "!" | "@" | "#" | "$" | "%"
 
 LINECOMMENT = "\", { UNESCAPEDNEWLINE }, ( "\n" | "\r" ) ;
 BLOCKCOMMENT = "\{",
-               { ? Any single valid UTF-8 encoded scalar value ? }, "\}" ;
+               { ? Any single valid UTF-8 encoded Unicode scalar value ? },
+               "\}" ;
