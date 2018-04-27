@@ -122,13 +122,16 @@ this to our abstract syntax:
 
 \\[
 \begin{align}
-    \tau         &::= \tau_B \mid \tau_f                                                                           \\\\
-    \tau_B       &::= \text{T} \mid \\, \perp                                                                      \\\\
-    \tau_f       &::= s_0 \rightarrow s_1 \mid \forall v_0, v_1, ..., v_n. \\, s^\Lambda_0 \rightarrow s^\Lambda_1 \\\\
-    s            &::= \tau_0 \\; \tau_1 \\; ... \\; \tau_n \mid ()                                                 \\\\
-    s^\Lambda    &::= \tau^\Lambda_0 \\; \tau^\Lambda_1 \\; ... \\; \tau^\Lambda_n \mid ()                         \\\\
-    \tau^\Lambda &::= \tau \mid v                                                                                  \\\\
-    v            &::= \text{t}                                                                                     \\\\
+    \tau             &::= \forall v_0, v_1, ..., v_n. \\, \tau_\Lambda \mid \tau_\kappa                    \\\\
+    \tau_\kappa      &::= \tau_B \mid \tau_f                                                               \\\\
+    \tau_\Lambda     &::= \tau_B \mid \tau^\Lambda_f                                                       \\\\
+    \tau_{\Lambda v} &::= \tau_\Lambda \mid v                                                              \\\\
+    \tau_B           &::= \text{T} \mid \\, \perp                                                          \\\\
+    \tau_f           &::= s_0 \rightarrow s_1                                                              \\\\
+    \tau^\Lambda_f   &::= s^\Lambda_0 \rightarrow s^\Lambda_1                                              \\\\
+    s                &::= \tau_{\kappa_0} \\; \tau_{\kappa_1} \\; ... \\; \tau_{\kappa_n} \mid ()          \\\\
+    s^\Lambda        &::= \tau_{\Lambda v_0} \\; \tau_{\Lambda v_1} \\; ... \\; \tau_{\Lambda v_n} \mid () \\\\
+    v                &::= \text{t}                                                                         \\\\
 \end{align}
 \\]
 
@@ -139,7 +142,10 @@ anywhere we would normally put those concrete types. Here a type **v**ariable
 is denoted \\( v \\), and the \\( \text{t} \\) is just a lowercase identifier,
 like `t` or `a` or `beans`. Concrete base types have uppercase identifiers (at
 least, they *start* with an uppercase letter), and type variables have
-lowercase identifiers.
+lowercase identifiers. Also note that here, \\( \kappa \\) indicates that the
+type is not quantified over (it is \\( \kappa \\)oncrete), and \\( \Lambda \\)
+indicates the opposite (since quantifying over types is like lambda
+abstraction, but on the level of types).
 
 Notice that there's actually one other change besides that. A base type
 \\( \tau_B \\) can now be whatever \\( \perp \\) is. "\\( \perp \\)" is
@@ -195,28 +201,32 @@ Let's see what it looks like:
 
 \\[
 \begin{align}
-    \tau                  &::= \tau_B \mid \tau_f                                                                                                              \\\\
-    \tau_B                &::= \text{T} \mid \forall v^\vartriangleleft. v \mid \\, \perp                                                                      \\\\
-    \tau_f                &::= s_0 \rightarrow s_1
-                          \mid \forall v^{\vartriangleleft?}_0, v^{\vartriangleleft?}_1, ..., v^{\vartriangleleft?}_n. \\, s^\Lambda_0 \rightarrow s^\Lambda_1 \\\\
-    s                     &::= \tau_0 \\; \tau_1 \\; ... \\; \tau_n \mid ()                                                                                    \\\\
-    s^\Lambda             &::= \tau^\Lambda_0 \\; \tau^\Lambda_1 \\; ... \\; \tau^\Lambda_n \mid ()                                                            \\\\
-    \tau^\Lambda          &::= \tau \mid v                                                                                                                     \\\\
-    v                     &::= \text{t}                                                                                                                        \\\\
-    v^\vartriangleleft    &::= v \vartriangleleft c                                                                                                            \\\\
-    v^{\vartriangleleft?} &::= v \mid v^\vartriangleleft                                                                                                       \\\\
-    c                     &::= \text{C}_0 \\; \\& \\; \text{C}_1 \\; \\& \\; ... \\, \\& \\; \text{C}_n                                                        \\\\
+    \tau                           &::= \forall v^{\vartriangleleft}\_0, v^{\vartriangleleft}\_1, ..., v^{\vartriangleleft}\_n. \\, \tau_{\Lambda\vartriangleleft}
+                                   \mid \forall v^{\vartriangleleft?}\_0, v^{\vartriangleleft?}\_1, ..., v^{\vartriangleleft?}\_n. \\, \tau_\Lambda \mid \tau_\kappa        \\\\
+    \tau_\kappa                    &::= \tau_B \mid \tau_f                                                                                                                  \\\\
+    \tau_{\Lambda\vartriangleleft} &::= v \mid \tau_\Lambda                                                                                                                 \\\\
+    \tau_\Lambda                   &::= \tau_B \mid \tau^\Lambda_f                                                                                                          \\\\
+    \tau_B                         &::= \text{T} \mid \\, \perp                                                                                                             \\\\
+    \tau_f                         &::= s_0 \rightarrow s_1                                                                                                                 \\\\
+    \tau^\Lambda_f                 &::= s^\Lambda_0 \rightarrow s^\Lambda_1                                                                                                 \\\\
+    s                              &::= \tau_{\kappa_0} \\; \tau_{\kappa_1} \\; ... \\; \tau_{\kappa_n} \mid ()                                                             \\\\
+    s^\Lambda                      &::= \tau_{{\Lambda\vartriangleleft}\_0} \\; \tau_{{\Lambda\vartriangleleft}\_1} \\; ... \\; \tau_{{\Lambda\vartriangleleft}\_n} \mid () \\\\
+    v                              &::= \text{t}                                                                                                                            \\\\
+    v^{\vartriangleleft?}          &::= v \mid v^\vartriangleleft                                                                                                           \\\\
+    v^\vartriangleleft             &::= v \vartriangleleft c                                                                                                                \\\\
+    c                              &::= \text{C}_0 \\; \\& \\; \text{C}_1 \\; \\& \\; ... \\, \\& \\; \text{C}_n                                                            \\\\
 \end{align}
 \\]
 
 Ouch. Well alright, let's break down the new stuff. We use
 \\( v^\vartriangleleft \\) to mean "constrained type variable" and
-\\( v^{\vartriangleleft?} \\) to mean "maybe constrained type variable".
-\\( c \\) is a "constraint", and \\( v \vartriangleleft c \\) means "\\( v \\)
-is *constrained by* \\( c \\)". We use \\( \text{C} \\) to mean the literal
-name of a constraint (like `Integral`), and
-\\( \text{C}_0 \\; \\& \\; \text{C}_1 \\) is just the conjunction of two
-constraints, so that you have to satisfy *both*.
+\\( v^{\vartriangleleft?} \\) to mean "maybe constrained type variable" (the
+point of the distinction is to disallow quantifying over a single lone type
+variable without constraint(s)). \\( c \\) is a "constraint", and
+\\( v \vartriangleleft c \\) means "\\( v \\) is *constrained by* \\( c \\)".
+We use \\( \text{C} \\) to mean the literal name of a constraint (like
+`Integral`), and \\( \text{C}_0 \\; \\& \\; \text{C}_1 \\) is just the
+conjunction of two constraints, so that you have to satisfy *both*.
 
 So what is the point of adding these "constraints"? What do they do for us?
 The point is that, if you know a bit of extra info about a type even though
@@ -233,10 +243,51 @@ functions that that constraint is associated with (like if you wanted your
 type to be constrained by `Integral`, you would have to implement `+` for your
 type, among other things).
 
+## sprinkling in type constructors (a.k.a. System \\( \text{F}_\omega \\): please stop doing this, this is an abuse of type theory)
+
+I apologize, but there is just one more thing. It will be a quick one. We need
+type constructors (type operators with
+[kinds](https://en.wikipedia.org/wiki/Kind_\(type_theory\))
+\\( \* \rightarrow \* \rightarrow \\; ... \rightarrow \* \rightarrow \* \\)).
+Think `Vec<T>` in Rust, or `Seq a` in Haskell; these both are type constructors
+that take a single concrete type and produce from it another concrete type
+(kind \\( \* \rightarrow \* \\)). Now we can apply both of our genericising
+tools (universal quantification, and constraints) to produce types. Luckily the
+changes to the abstract syntax aren't so big:
+
+\\[
+\begin{align}
+    \tau                           &::= \forall v^{\vartriangleleft}\_0, v^{\vartriangleleft}\_1, ..., v^{\vartriangleleft}\_n. \\, \tau_{\Lambda\vartriangleleft}
+                                   \mid \forall v^{\vartriangleleft?}\_0, v^{\vartriangleleft?}\_1, ..., v^{\vartriangleleft?}\_n. \\, \tau_\Lambda \mid \tau_\kappa                         \\\\
+    \tau_\kappa                    &::= \tau_B \mid \tau_f                                                                                                                                   \\\\
+    \tau_{\Lambda\vartriangleleft} &::= v \mid \tau_\Lambda                                                                                                                                  \\\\
+    \tau_\Lambda                   &::= \tau^\Lambda_B \mid \tau^\Lambda_f                                                                                                                   \\\\
+    \tau_B                         &::= \text{T} \mid \omega_\kappa \mid \\, \perp                                                                                                           \\\\
+    \tau^\Lambda_B                 &::= \tau_B \mid \omega                                                                                                                                   \\\\
+    \tau_f                         &::= s_0 \rightarrow s_1                                                                                                                                  \\\\
+    \tau^\Lambda_f                 &::= s^\Lambda_0 \rightarrow s^\Lambda_1                                                                                                                  \\\\
+    s                              &::= \tau_{\kappa_0} \\; \tau_{\kappa_1} \\; ... \\; \tau_{\kappa_n} \mid ()                                                                              \\\\
+    s^\Lambda                      &::= \tau_{{\Lambda\vartriangleleft}\_0} \\; \tau_{{\Lambda\vartriangleleft}\_1} \\; ... \\; \tau_{{\Lambda\vartriangleleft}\_n} \mid ()                  \\\\
+    v                              &::= \text{t}                                                                                                                                             \\\\
+    v^{\vartriangleleft?}          &::= v \mid v^\vartriangleleft                                                                                                                            \\\\
+    v^\vartriangleleft             &::= v \vartriangleleft c                                                                                                                                 \\\\
+    c                              &::= \text{C}_0 \\; \\& \\; \text{C}_1 \\; \\& \\; ... \\, \\& \\; \text{C}_n                                                                             \\\\
+    \omega\_\kappa                 &::= \text{T}\langle\tau\_{B\_0} \\; \tau\_{B\_1} \\; ... \\; \tau\_{B\_n}\rangle                                                                         \\\\
+    \omega\_\Lambda                &::= \text{T}\langle\tau\_{{\Lambda\vartriangleleft}\_0} \\; \tau\_{{\Lambda\vartriangleleft}\_1} \\; ... \\; \tau\_{{\Lambda\vartriangleleft}\_n}\rangle \\\\
+    \omega                         &::= \omega\_\kappa \mid \omega\_\Lambda                                                                                                                  \\\\
+\end{align}
+\\]
+
+We introduce here the notion of \\( \omega \\), which is a type-constructed
+type which may (\\( \omega\_\Lambda \\)) or may not (\\( \omega\_\kappa \\))
+have its type arguments be quantified over. \\( \text{T} \\) still stands for
+an identifier that starts with an uppercase letter, and the items in angle
+brackets (\\( \langle \\; \rangle \\)) are type arguments to that constructor.
+
 ## typing expressions
 
-Since there are three kinds of expressions, let's look at how those
-three kinds of expressions each get their types.
+Since there are three kinds of expressions, let's look at how those three kinds
+of expressions each get their types.
 
 ### typing literals
 
@@ -251,4 +302,46 @@ Some literals are more ambiguous, like floating point literals. ataraxia
 supports both 32-bit and 64-bit floating point numbers, so there's no way to
 know from a float literal alone which one it is.
 
-...
+There are type constraints built into the standard library that allow
+genericising over floating point numbers and integers: `Floating` and
+`Integral`, respectively. If the particular situation allows, these constraints
+can just be directly applied and give the respective float and int literals the
+most generic types possible:
+
+\\[
+\begin{align}
+    floatLiteral &: \forall f \vartriangleleft Floating. \\; f \\\\
+    intLiteral   &: \forall i \vartriangleleft Integral. \\; i \\\\
+\end{align}
+\\]
+
+But if the literals in question are not found in genericised code that allows
+this use of generic typing, they will automatically take on default types of
+`F32` and `I32`, respectively (these correspond to 32-bit floating point
+numbers and 32-bit signed integers, respectively).
+
+List literals are even a bit trickier. Lists are of type `List<?>` where `?`
+could be a concrete type, or a type variable in some cases. If the values in
+your list literal don't all have the same type, then it won't typecheck at all,
+of course. Otherwise the rules are the same for whatever type its elements
+have, and you then substitute that type in for the `?`. Lists, though, don't
+have a "default type", so if the type cannot be found from the elements then
+you may still get a type error.
+
+### typing identifiers
+
+Giving identifiers types is really easy, since all identifiers are top-level
+declarations that are required to have literal type signatures anyways.
+
+### typing blocks
+
+Blocks that aren't top-level declarations generally have their types inferred.
+Blocks **always have a function type**, never a plain value type. Keep in mind
+[the rules about stack scoping](#the-scope-of-stack-types) when considering the
+left and right stack "types" that would be part of an anonymous block's type
+signature.
+
+The block `{}` has a type signature of `() -> ()`. The block `{?}` has the same
+type signature as the inner `?` if `?` is a function (i.e. the function is
+quoted), and a type signature of `() -> t` if `?` is not a function and has
+type `t` (since `?` is implicitly pushed to the stack).
