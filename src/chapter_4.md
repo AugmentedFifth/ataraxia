@@ -263,7 +263,7 @@ changes to the abstract syntax aren't so big:
     \tau_{\Lambda\vartriangleleft} &::= v \mid \tau_\Lambda                                                                                                                                  \\\\
     \tau_\Lambda                   &::= \tau^\Lambda_B \mid \tau^\Lambda_f                                                                                                                   \\\\
     \tau_B                         &::= \text{T} \mid \omega_\kappa \mid \\, \perp                                                                                                           \\\\
-    \tau^\Lambda_B                 &::= \tau_B \mid \omega                                                                                                                                   \\\\
+    \tau^\Lambda_B                 &::= \tau_B \mid \omega\_\Lambda                                                                                                                          \\\\
     \tau_f                         &::= s_0 \rightarrow s_1                                                                                                                                  \\\\
     \tau^\Lambda_f                 &::= s^\Lambda_0 \rightarrow s^\Lambda_1                                                                                                                  \\\\
     s                              &::= \tau_{\kappa_0} \\; \tau_{\kappa_1} \\; ... \\; \tau_{\kappa_n} \mid ()                                                                              \\\\
@@ -274,7 +274,6 @@ changes to the abstract syntax aren't so big:
     c                              &::= \text{C}_0 \\; \\& \\; \text{C}_1 \\; \\& \\; ... \\, \\& \\; \text{C}_n                                                                             \\\\
     \omega\_\kappa                 &::= \text{T}\langle\tau\_{B\_0} \\; \tau\_{B\_1} \\; ... \\; \tau\_{B\_n}\rangle                                                                         \\\\
     \omega\_\Lambda                &::= \text{T}\langle\tau\_{{\Lambda\vartriangleleft}\_0} \\; \tau\_{{\Lambda\vartriangleleft}\_1} \\; ... \\; \tau\_{{\Lambda\vartriangleleft}\_n}\rangle \\\\
-    \omega                         &::= \omega\_\kappa \mid \omega\_\Lambda                                                                                                                  \\\\
 \end{align}
 \\]
 
