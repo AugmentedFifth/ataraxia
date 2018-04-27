@@ -2,7 +2,7 @@
 
 **ataraxia** is a
 [high-level](https://en.wikipedia.org/wiki/High-level_programming_language),
-[statically-strongly typed](https://en.wikipedia.org/wiki/Intuitionistic_type_theory),
+[statically-strongly typed](https://en.wikipedia.org/wiki/System_F),
 [stack-oriented](https://en.wikipedia.org/wiki/Stack-oriented_programming_language)
 programming language. It is similar to
 [Joy](https://en.wikipedia.org/wiki/Joy_\(programming_language\)),
