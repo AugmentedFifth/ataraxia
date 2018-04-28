@@ -218,10 +218,39 @@ an argument and prints the `Str` to `stderr` before calling `#panic`.
 panic : Str -> _|_
 ```
 
-### bit twiddling
+### bit twiddling and the `Repr` constraints
 
 Of course, we need bit twiddling functions like "bitwise exclusive or" and
 "bitwise and", right? Well there are some unsafe core functions that do just
 that, and they are used to implement the bit twiddling operations in the
 standard library (`^`, `&`, etc.) as well as the boolean operations (`xor`,
 `and`).
+
+These core functions operate over types that implement `Repr8`, `Repr32`, and
+`Repr64`, which are type constraints that **cannot be implemented by the**
+**user**. Instead, the compiler automatically implements them appropriately
+when it knows that the type has an 8-bit, 32-bit, or 64-bit representation in
+memory, respectively.
+
+| **name** | **description**                                | **type**                 |
+| --------:|:---------------------------------------------- |:------------------------ |
+| `#<<8`   | Shift an 8-bit value leftward.                 | `Repr8 t => t I8 -> t`   |
+| `#>>8`   | Shift an 8-bit value rightward.                | `Repr8 t => t I8 -> t`   |
+| `#&8`    | Perform a bitwise "and" of two 8-bit values.   | `Repr8 t => t t -> t`    |
+| `#|8`    | Perform a bitwise "or" of two 8-bit values.    | `Repr8 t => t t -> t`    |
+| `#^8`    | Perform a bitwise "xor" of two 8-bit values.   | `Repr8 t => t t -> t`    |
+| `#~8`    | Perform a bitwise negation of an 8-bit value.  | `Repr8 t => t -> t`      |
+| `#<<32`  | Shift an 32-bit value leftward.                | `Repr32 t => t I32 -> t` |
+| `#>>32`  | Shift an 32-bit value rightward.               | `Repr32 t => t I32 -> t` |
+| `#&32`   | Perform a bitwise "and" of two 32-bit values.  | `Repr32 t => t t -> t`   |
+| `#|32`   | Perform a bitwise "or" of two 32-bit values.   | `Repr32 t => t t -> t`   |
+| `#^32`   | Perform a bitwise "xor" of two 32-bit values.  | `Repr32 t => t t -> t`   |
+| `#~32`   | Perform a bitwise negation of an 32-bit value. | `Repr32 t => t -> t`     |
+| `#<<64`  | Shift an 64-bit value leftward.                | `Repr64 t => t I64 -> t` |
+| `#>>64`  | Shift an 64-bit value rightward.               | `Repr64 t => t I64 -> t` |
+| `#&64`   | Perform a bitwise "and" of two 64-bit values.  | `Repr64 t => t t -> t`   |
+| `#|64`   | Perform a bitwise "or" of two 64-bit values.   | `Repr64 t => t t -> t`   |
+| `#^64`   | Perform a bitwise "xor" of two 64-bit values.  | `Repr64 t => t t -> t`   |
+| `#~64`   | Perform a bitwise negation of an 64-bit value. | `Repr64 t => t -> t`     |
+
+### invocation
