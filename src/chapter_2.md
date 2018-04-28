@@ -54,11 +54,11 @@ inside of these literals, like `1_867_098`.
 
 The second one is hexadecimal, which is the same as the decimal ones described
 above, except that they have an extra `0x` (or `0X`) at the beginning and
-support hexadecimal digits (`[0-9a-fA-F]`), like so: `0xDEADBEEF`.
+support hexadecimal digits (`[0-9a-fA-F]`), like so: `0xDEAD_BEEF`.
 
 The third one is binary, which is like hexadecimal except instead of an `x`
 (or `X`), you use a `b` (or `B`), and there are only `0`s and `1`s allowed,
-like so: `0b1001110110101`.
+like so: `0b1_0011_1011_0101`.
 
 Any integer literal can be made negative by simply prepending a minus sign, but
 note that the minus sign must be directly adjacent to the beginning of the rest
@@ -71,8 +71,8 @@ ataraxia supports syntax for float literals essentially identical to that found
 in other languages, but allows underscores inside just like with integer
 literals.
 
-This includes an optional exponent at the end, like `-5.364327e-5` which stands
-for \\( -5.364327 \cdot 10^{-5} \\).
+This includes an optional exponent at the end, like `-5.364_327e-5` which
+stands for \\( -5.364327 \cdot 10^{-5} \\).
 
 For special floating point values, there are special literals. `NaN` is
 [not a number](https://en.wikipedia.org/wiki/NaN), `inf` is positive infinity,

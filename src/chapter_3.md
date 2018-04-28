@@ -210,7 +210,7 @@ times:
 As an example, we implement a natural number exponentiation function by hand:
 
 ```rust
-^ : Nat Nat -> Nat := {
+** : Nat Nat -> Nat := {
     1 swap
     {over *} rep
     drop
